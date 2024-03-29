@@ -1,0 +1,60 @@
+<form class="mat-dialog-content" [formGroup]="controlGroup">
+    <h1 mat-dialog-title>{{ user.user_id ? 'Edit' : 'Add' }} User</h1>
+    <div mat-dialog-content>
+      <mat-form-field>
+        <input matInput placeholder="Username" formControlName="username"
+               [errorStateMatcher]="errorStateMatcher" required>
+        <mat-error *ngIf="hasError('username', 'required')">
+            Username is required
+        </mat-error>
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <input matInput placeholder="First name" formControlName="first_name"
+               [errorStateMatcher]="errorStateMatcher" required>
+        <mat-error *ngIf="hasError('first_name', 'required')">
+          First name is required
+        </mat-error>
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <input matInput placeholder="Last name" formControlName="last_name"
+               [errorStateMatcher]="errorStateMatcher" required>
+        <mat-error *ngIf="hasError('last_name', 'required')">
+          Last name is required
+        </mat-error>
+      </mat-form-field>
+      <br/>
+      <mat-form-field>
+        <input matInput placeholder="Email" formControlName="email"
+               [errorStateMatcher]="errorStateMatcher" required>
+        <mat-error *ngIf="hasError('email', 'required')">
+          Email is required
+        </mat-error>
+      </mat-form-field>
+      <br/>
+      <!-- <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status" required>
+          <mat-option>--</mat-option>
+            <mat-option *ngFor="let status of statuses">{{status}}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('status', 'required')">
+            Status is required
+        </mat-error>
+      </mat-form-field> -->
+    <br/>
+    <mat-form-field>
+      <input matInput placeholder="Department" formControlName="department"
+             [errorStateMatcher]="errorStateMatcher">
+    </mat-form-field>
+    <br/>
+    </div>
+    <mat-dialog-actions>
+      <button mat-button *ngIf="user.user_id" [mat-dialog-close] (click)="delete()">
+        Delete
+      </button>
+      <button mat-button [mat-dialog-close] (click)="save()"
+              [disabled]="controlGroup.valid">Save</button>
+    </mat-dialog-actions>
+  </form>

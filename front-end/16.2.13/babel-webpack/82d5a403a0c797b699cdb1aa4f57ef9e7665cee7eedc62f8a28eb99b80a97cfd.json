@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class InstantErrorStateMatcher {\n  isErrorState(control, form) {\n    return control != null && control.invalid && (control.dirty || control.touched);\n  }\n}","map":null,"metadata":{},"sourceType":"module","externalDependencies":[]}

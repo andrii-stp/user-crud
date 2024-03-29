@@ -1,0 +1,15 @@
+FROM node:18.16.0 AS angular
+
+RUN npm install -g @angular/cli@16.2.13
+
+COPY . /front-end
+
+WORKDIR front-end
+
+RUN npm install && ng build
+
+FROM nginx
+
+COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=angular /front-end/dist/front-end /usr/share/nginx/html

@@ -1,0 +1,74 @@
+output:
+  sort-results: true
+
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+  wsl:
+    allow-assign-and-anything: false
+  varnamelen:
+    min-name-length: 1
+  depguard:
+    rules:
+      prevent_unmaintained_packages:
+        list-mode: lax
+        files:
+          - $all
+          - "!$test"
+        allow:
+          - $gostd
+  revive:
+    rules:
+      - name: dot-imports
+        arguments:
+          - allowedPackages: 
+              - "github.com/onsi/ginkgo/v2"
+              - "github.com/onsi/gomega"
+
+issues:
+  exclude-rules:
+    - path: config
+      linters:
+        - goerr113
+    - path: handler
+      linters:
+        - wrapcheck
+    - path: model
+      linters:
+        - tagliatelle
+    - path: router
+      linters:
+        - exhaustruct
+        - errcheck
+        - errorlint
+        - forcetypeassert
+    - path: storage
+      linters:
+        - errcheck
+        - cyclop
+        - wrapcheck
+    - path: tests/...
+      linters:
+        - goconst
+        - dupl
+        - exhaustruct
+
+linters:
+  enable-all: true
+  disable:
+    - exhaustivestruct
+    - gci
+    - paralleltest
+    - gofumpt
+    - goimports
+
+    # deprecated
+    - interfacer
+    - scopelint
+    - maligned
+    - varcheck
+    - deadcode
+    - ifshort
+    - nosnakecase
+    - structcheck
+    - golint

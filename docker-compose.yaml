@@ -1,0 +1,41 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=users
+  backend:
+    build:
+      dockerfile: dockerfile
+      context: back-end
+    environment:
+      - SERVER_PORT=8080
+      - DB_DRIVER=postgres
+      - DB_HOST=postgres
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_NAME=users
+      - DB_SSLMODE=disable
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 10s
+  frontend:
+    build:
+      dockerfile: dockerfile
+      context: front-end
+    ports:
+      - 80:80
+    depends_on:
+      - backend
